@@ -7,7 +7,7 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 @media print{body{background:#fff;color:#111}.site-header,.site-footer,.post-top:before,.article-end,.signal-message{display:none}.post-heading,.article-body{max-width:none;width:100%;padding:10px 0;color:#111}.post-heading h1{font-size:30pt}.article-body{font-size:11pt;line-height:1.6}.post-meta,.eyebrow,.article-body figcaption,.article-body .sources{color:#444}.article-body figure{break-inside:avoid}.figure-frame img{max-height:95mm}.post-top{border:0}.back-link{display:none}}
 
-/* Compact masthead and HALO-inspired salute control. */
+/* Compact masthead and energy-sword like control. */
 
 
 
@@ -20,20 +20,17 @@
 .like-button:before,.like-button:after{content:'';position:absolute;z-index:-1;pointer-events:none;clip-path:polygon(8px 0,calc(100% - 8px) 0,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0 calc(100% - 8px),0 8px);transition:background .2s}
 .like-button:before{inset:0;background:var(--hud-frame)}
 .like-button:after{inset:1px;background:linear-gradient(110deg,#14324766,transparent 65%),var(--hud-panel)}
-.like-button .salute-mark{width:28px;height:28px;flex:none;overflow:visible;transition:filter .3s}
-.salute-ring{transform-origin:16px 16px;transform:rotate(-45deg);transition:transform .4s}
-.salute-ticks{opacity:.5}
-.salute-chevron,.salute-check{transition:opacity .2s}
-.salute-check{opacity:0}
+.like-button .energy-sword{width:28px;height:28px;flex:none;overflow:visible}
+.sword-blades{fill:transparent;stroke:#487b9b;transition:fill .25s,stroke .25s,filter .25s}
+.sword-core{stroke:#e5fbff;opacity:0;transition:opacity .25s}
+.sword-hilt{fill:#162d3e;stroke:#7194ad}
 .like-button:hover:not(:disabled){--hud-frame:#76cdea;--hud-panel:#10273a;color:#d1f3ff}
-.like-button:hover:not(:disabled) .salute-ring{transform:rotate(0deg)}
+.like-button:hover:not(:disabled) .sword-blades{stroke:#72a9c6}
 .like-button[aria-pressed=true]{--hud-frame:#538ba2;--hud-panel:#0d2634;color:#a4e9ff}
-.like-button[aria-pressed=true] .salute-ring{transform:rotate(45deg)}
-.like-button[aria-pressed=true] .salute-mark{filter:drop-shadow(0 0 4px #74d9ff66)}
-.like-button[aria-pressed=true] .salute-chevron{opacity:0}
-.like-button[aria-pressed=true] .salute-check{opacity:1}
-.like-button.salute-received .salute-mark{animation:salute-received .6s ease-out}
-@keyframes salute-received{0%{filter:drop-shadow(0 0 1px #74d9ff33)}40%{filter:drop-shadow(0 0 10px #a4e9ffcc)}100%{filter:drop-shadow(0 0 4px #74d9ff66)}}
+.like-button[aria-pressed=true] .sword-blades{fill:#41baff88;stroke:#b9f1ff;filter:drop-shadow(0 0 3px #48bfff99)}
+.like-button[aria-pressed=true] .sword-core{opacity:.95}
+.like-button.like-received .sword-blades{animation:sword-ignite .55s ease-out}
+@keyframes sword-ignite{0%{filter:drop-shadow(0 0 1px #48bfff33)}45%{filter:drop-shadow(0 0 6px #93e8ffbb)}100%{filter:drop-shadow(0 0 3px #48bfff99)}}
 .like-button:disabled{cursor:default;opacity:.65}
 .like-button[aria-pressed=true]:disabled{opacity:1}
 .like-total{color:#95a9be;white-space:nowrap;font-size:12px;letter-spacing:.02em}
@@ -45,7 +42,7 @@
 .post-likes .like-button{padding:10px 20px}
 @media(max-width:740px){.index-layout{padding-top:24px}.section-heading h1{font-size:22px}.entry-actions{align-items:flex-start}.entry-actions .article-likes{width:100%}}
 @media print{.article-likes{display:none}}
-@media(prefers-reduced-motion:reduce){.like-button.salute-received .salute-mark{animation:none}}
+@media(prefers-reduced-motion:reduce){.like-button.like-received .sword-blades{animation:none}}
 
 .header-art{position:relative;display:block;flex:0 0 64px;width:64px;height:64px;overflow:hidden;mix-blend-mode:screen;pointer-events:none}
 .header-art img{position:absolute;left:50%;top:50%;width:320px;max-width:none;height:200px;transform:translate(-50%,-50%)}

@@ -21,7 +21,7 @@ Open `http://127.0.0.1:8787/`.
 
 ## Article likes
 
-Visitors can like a note without signing in using the HALO-inspired **Salute** button. Its segmented HUD reticle lights up and changes to a check mark after a successful salute. The homepage and article share the same per-article counter, stored by [CountAPI](https://countapi.mileshilliard.com/). Loading a page only reads the total; pressing Salute increments it. No API key or account is required. The design change preserves existing likes and browser vote history.
+Visitors can like a note without signing in using the **Like** button with a small HALO-inspired energy sword. Its dark blue twin-blade outline lights up after a successful like, and the label changes to **Liked**. The homepage and article share the same per-article counter, stored by [CountAPI](https://countapi.mileshilliard.com/). Loading a page only reads the total; pressing Like increments it. No API key or account is required. The design change preserves existing likes and browser vote history.
 
 The browser remembers a successful like in local storage and prevents repeat clicks, including across tabs where Web Locks are supported. Clearing browser storage or using another browser allows another like. If a submission loses its reply, it remains pending rather than automatically adding another like. This is a lightweight public counter, not a verified count of unique people: the service has public write endpoints, so deliberate manipulation is possible, and availability depends on the external service. A failed read displays an unavailable state instead of a made-up total.
 

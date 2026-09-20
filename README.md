@@ -6,7 +6,7 @@ A personal technical notebook on machine learning, computational lithography, an
 
 The first entry, **From the Photomask to the Wafer**, begins the semiconductor lithography course notes. Its 1,007-word text, five figures, and consolidated source credits are preserved from the edited English manuscript.
 
-The biography contains only the approved description of a PhD student and the research field. The blue Cortana background is AI-generated fan art. The small `117` button in the footer reveals a HALO easter egg.
+The biography contains only the approved description of a PhD student and the research field. The design uses a blue Cortana background. The small `117` button in the footer reveals a HALO easter egg.
 
 ## Local preview
 

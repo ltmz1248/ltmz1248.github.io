@@ -44,7 +44,7 @@ def header(home=False):
     return f'''<header class="site-header"><div class="shell nav-wrap"><a class="brand" href="{site_url('')}" aria-label="{escape(TITLE, quote=True)} home">{MARK}<span>{escape(TITLE)}</span></a><nav class="nav-links" aria-label="Main navigation"><a href="{site_url('')}#notes"{' aria-current="page"' if home else ''}>Notes</a><a href="{site_url('')}#about">About</a></nav></div></header>'''
 
 def footer():
-    return f'''<footer class="site-footer"><div class="shell footer-inner"><div class="footer-left"><span>© 2026 {escape(TITLE)}</span><span class="art-credit">AI-generated Cortana fan art.</span></div><button class="signal-button" type="button" data-signal aria-label="Activate signal 117" aria-pressed="false">117</button></div></footer><div class="signal-message" data-signal-message role="status" aria-live="polite" aria-atomic="true"></div></body></html>'''
+    return f'''<footer class="site-footer"><div class="shell footer-inner"><div class="footer-left"><span>© 2026 {escape(TITLE)}</span></div><button class="signal-button" type="button" data-signal aria-label="Activate signal 117" aria-pressed="false">117</button></div></footer><div class="signal-message" data-signal-message role="status" aria-live="polite" aria-atomic="true"></div></body></html>'''
 
 def render_article(post):
     blocks = [block.strip() for block in post['content'].strip().split('\n\n') if block.strip()]

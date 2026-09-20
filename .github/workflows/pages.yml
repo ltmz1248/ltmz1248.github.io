@@ -1,0 +1,39 @@
+name: Publish the notebook
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out the notebook
+        uses: actions/checkout@v6
+      - name: Configure GitHub Pages
+        id: pages
+        uses: actions/configure-pages@v5
+      - name: Build the English pages
+        env:
+          BLOG_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        run: python3 scripts/build_content.py --base-path "$BLOG_BASE_PATH"
+      - name: Upload the website
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+      - name: Publish to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -2,7 +2,7 @@
 title: "From the Photomask to the Wafer"
 description: "An illustrated reading of Lecture 38: how a mask becomes a physical pattern through imaging, resist chemistry, development, and etching."
 pubDate: "2026-09-20"
-tags: ["Lithography", "OPC", "ILT"]
+tags: ["Lithography"]
 ---
 
 # From the Photomask to the Wafer

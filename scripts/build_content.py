@@ -7,6 +7,7 @@ import re
 import math
 import argparse
 import hashlib
+import json
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / 'dist'
@@ -39,7 +40,11 @@ def read_post(path):
     body = content.split('\n---\n')[0]
     paragraphs = [p for p in body.split('\n\n') if p.strip() and not p.lstrip().startswith(('#','![','*Figure'))]
     word_count = len(re.findall(r"[A-Za-z0-9]+(?:[-'][A-Za-z0-9]+)*", '\n'.join(paragraphs)))
-    return {'title':field('title'),'description':field('description'),'date':field('pubDate'),'slug':path.stem,'content':content,'words':word_count,'minutes':math.ceil(word_count/200),'url':site_url('notes/'+path.stem+'/')}
+    tags_field = re.search(r'^tags:\s*(.+)$', meta, re.M)
+    tags = json.loads(tags_field[1]) if tags_field else []
+    if not isinstance(tags, list) or any(not isinstance(tag, str) for tag in tags):
+        raise ValueError(f'{path.name}: tags must be a JSON array of strings')
+    return {'title':field('title'),'description':field('description'),'date':field('pubDate'),'tags':tags,'slug':path.stem,'content':content,'words':word_count,'minutes':math.ceil(word_count/200),'url':site_url('notes/'+path.stem+'/')}
 
 def head(title, description):
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>{escape(title)}</title><meta name="description" content="{escape(description,quote=True)}"><meta property="og:title" content="{escape(title,quote=True)}"><meta property="og:description" content="{escape(description,quote=True)}"><meta property="og:type" content="website"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,{quote(ICON,safe='')}"><link rel="stylesheet" href="{asset_url('styles.css')}"><script src="{asset_url('site.js')}" defer></script><script type="module" src="{asset_url('likes.mjs')}"></script></head><body><a class="skip-link" href="#main">Skip to content</a>'''
@@ -79,7 +84,8 @@ if not posts:raise ValueError('No blog posts')
 entries=[]
 for number,post in enumerate(posts,1):
     date=datetime.strptime(post['date'],'%Y-%m-%d').strftime('%d %b %Y')
-    entries.append(f'''<article class="entry"><div class="entry-index">{number:02d}</div><div><div class="entry-meta"><span class="entry-category">Course notes</span><span aria-hidden="true">/</span><time datetime="{post['date']}">{date}</time></div><h3><a href="{post['url']}">{escape(post['title'])}</a></h3><p class="entry-description">{escape(post['description'])}</p><div class="entry-actions"><ul class="tags" aria-label="Topics"><li>Lithography</li><li>OPC</li><li>ILT</li></ul>{likes(post)}</div></div></article>''')
+    tags_html = '<ul class="tags" aria-label="Topics">' + ''.join('<li>' + escape(tag) + '</li>' for tag in post['tags']) + '</ul>' if post['tags'] else ''
+    entries.append(f'''<article class="entry"><div class="entry-index">{number:02d}</div><div><div class="entry-meta"><span class="entry-category">Course notes</span><span aria-hidden="true">/</span><time datetime="{post['date']}">{date}</time></div><h3><a href="{post['url']}">{escape(post['title'])}</a></h3><p class="entry-description">{escape(post['description'])}</p><div class="entry-actions">{tags_html}{likes(post)}</div></div></article>''')
     page=head(post['title']+' — '+TITLE,post['description'])+header()
     page+=f'''<main id="main"><section class="post-top"><div class="shell"><div class="post-heading"><a class="back-link" href="{site_url('')}#notes">← All notes</a><p class="eyebrow">Course notes / Lithography · 001</p><h1>{escape(post['title'])}</h1><div class="post-meta"><time datetime="{post['date']}">{date}</time></div></div></div></section><article class="article-body">{render_article(post)}<div class="post-likes">{likes(post)}</div><div class="article-end"><a class="text-link" href="{site_url('')}#notes">Back to the notebook <span aria-hidden="true">↗</span></a><span class="series-label">Semiconductor lithography<br>Course notes · 001</span></div></article></main>'''+footer()
     target=DIST/'notes'/post['slug']/'index.html';target.parent.mkdir(parents=True,exist_ok=True);target.write_text(page,encoding='utf-8')

@@ -21,6 +21,10 @@ if BASE_PATH and not re.fullmatch(r'/[A-Za-z0-9._-]+', BASE_PATH):
 
 def site_url(path):
     return BASE_PATH + '/' + path.lstrip('/')
+
+def asset_url(path):
+    version = hashlib.sha256((DIST / path).read_bytes()).hexdigest()[:12]
+    return site_url(path) + '?v=' + version
 ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#060c17"/><ellipse cx="16" cy="16" rx="7" ry="12" transform="rotate(28 16 16)" fill="none" stroke="#94d9f3" stroke-width="2.5"/><path d="M7 24l18-16" stroke="#94d9f3" stroke-width="1.2"/></svg>'
 
 def inline(text):
@@ -38,7 +42,7 @@ def read_post(path):
     return {'title':field('title'),'description':field('description'),'date':field('pubDate'),'slug':path.stem,'content':content,'words':word_count,'minutes':math.ceil(word_count/200),'url':site_url('notes/'+path.stem+'/')}
 
 def head(title, description):
-    return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>{escape(title)}</title><meta name="description" content="{escape(description,quote=True)}"><meta property="og:title" content="{escape(title,quote=True)}"><meta property="og:description" content="{escape(description,quote=True)}"><meta property="og:type" content="website"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,{quote(ICON,safe='')}"><link rel="stylesheet" href="{site_url('styles.css')}"><script src="{site_url('site.js')}" defer></script><script type="module" src="{site_url('likes.mjs')}"></script></head><body><a class="skip-link" href="#main">Skip to content</a>'''
+    return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>{escape(title)}</title><meta name="description" content="{escape(description,quote=True)}"><meta property="og:title" content="{escape(title,quote=True)}"><meta property="og:description" content="{escape(description,quote=True)}"><meta property="og:type" content="website"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,{quote(ICON,safe='')}"><link rel="stylesheet" href="{asset_url('styles.css')}"><script src="{asset_url('site.js')}" defer></script><script type="module" src="{asset_url('likes.mjs')}"></script></head><body><a class="skip-link" href="#main">Skip to content</a>'''
 
 def header(home=False):
     return f'''<header class="site-header"><div class="shell nav-wrap"><a class="brand" href="{site_url('')}" aria-label="{escape(TITLE, quote=True)} home"><span>{escape(TITLE)}</span></a><span class="header-art" aria-hidden="true"><img src="{site_url('assets/cortana-ring-background.png')}" width="1920" height="1200" alt=""></span></div></header>'''

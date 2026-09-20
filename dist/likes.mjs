@@ -96,16 +96,16 @@ function mountLikes() {
     let busy = false;
     let message = '';
     let revision = 0;
-    const pendingMessage = 'Your like may have been received. Reload to refresh the total.';
+    const pendingMessage = 'Your salute may have been received. Reload to refresh the total.';
     function render() {
       const state = counter.state();
       for (const widget of widgets) {
         const button = widget.querySelector('[data-like-button]');
         button.disabled = busy || Boolean(state) || (count === null && !message);
         button.setAttribute('aria-pressed', String(state === 'liked'));
-        widget.querySelector('[data-like-label]').textContent = busy ? 'Sending…' : state === 'liked' ? 'Liked' : state === 'pending' ? 'Pending' : count === null && message ? 'Retry' : 'Like';
+        widget.querySelector('[data-like-label]').textContent = busy ? 'Sending…' : state === 'liked' ? 'Saluted' : state === 'pending' ? 'Pending' : count === null && message ? 'Retry' : 'Salute';
         widget.querySelector('[data-like-count]').textContent = count === null ? '—' : count.toLocaleString('en-US');
-        widget.querySelector('[data-like-unit]').textContent = count === 1 ? 'like' : 'likes';
+        widget.querySelector('[data-like-unit]').textContent = count === 1 ? 'salute' : 'salutes';
         widget.querySelector('[data-like-status]').textContent = message;
       }
     }
@@ -118,7 +118,7 @@ function mountLikes() {
         message = counter.state() === 'pending' ? pendingMessage : '';
       } catch {
         if (requestRevision !== revision) return;
-        message = count === null ? 'Likes are temporarily unavailable. Please try again.' : 'Could not refresh the total.';
+        message = count === null ? 'Salutes are temporarily unavailable. Please try again.' : 'Could not refresh the total.';
       }
       render();
     }
@@ -133,8 +133,11 @@ function mountLikes() {
         const result = await counter.like();
         count = result.count;
         message = result.state === 'pending' ? pendingMessage : '';
+        if (result.state === 'liked') {
+          for (const widget of widgets) widget.querySelector('[data-like-button]').classList.add('salute-received');
+        }
       } catch {
-        message = counter.state() === 'pending' ? pendingMessage : 'Could not save your like. Please try again.';
+        message = counter.state() === 'pending' ? pendingMessage : 'Could not save your salute. Please try again.';
       } finally {
         busy = false;
         render();

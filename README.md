@@ -6,7 +6,7 @@ A personal technical notebook on machine learning, computational lithography, an
 
 The first entry, **From the Photomask to the Wafer**, begins the semiconductor lithography course notes. Its 1,007-word text, five figures, and consolidated source credits are preserved from the edited English manuscript.
 
-The biography contains only the approved description of a PhD student and the research field. The design uses the supplied black background with a blue Cortana ring. The small `117` button in the footer reveals a HALO easter egg.
+The biography contains only the approved description of a PhD student and the research field. The supplied black background with a blue Cortana ring appears as a small decoration at the top right, leaving a compact, text-first layout. The small `117` button in the footer reveals a HALO easter egg.
 
 ## Local preview
 
@@ -21,7 +21,7 @@ Open `http://127.0.0.1:8787/`.
 
 ## Article likes
 
-Visitors can like a note without signing in. The homepage and article share the same per-article counter, stored by [CountAPI](https://countapi.mileshilliard.com/). Loading a page only reads the total; pressing Like increments it. No API key or account is required.
+Visitors can like a note without signing in using the HALO-inspired **Salute** button. Its segmented HUD reticle lights up and changes to a check mark after a successful salute. The homepage and article share the same per-article counter, stored by [CountAPI](https://countapi.mileshilliard.com/). Loading a page only reads the total; pressing Salute increments it. No API key or account is required. The design change preserves existing likes and browser vote history.
 
 The browser remembers a successful like in local storage and prevents repeat clicks, including across tabs where Web Locks are supported. Clearing browser storage or using another browser allows another like. If a submission loses its reply, it remains pending rather than automatically adding another like. This is a lightweight public counter, not a verified count of unique people: the service has public write endpoints, so deliberate manipulation is possible, and availability depends on the external service. A failed read displays an unavailable state instead of a made-up total.
 

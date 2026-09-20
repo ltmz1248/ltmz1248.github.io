@@ -8,7 +8,7 @@
     const enabled = !document.body.classList.contains('signal-active');
     document.body.classList.toggle('signal-active', enabled);
     signalButton.setAttribute('aria-pressed', String(enabled));
-    signalMessage.textContent = enabled ? 'Signal 117 received. Welcome back, Spartan.' : '';
+    signalMessage.textContent = enabled ? 'Wake me. When you need me.' : '';
     if (enabled) timer = setTimeout(() => {
       document.body.classList.remove('signal-active');
       signalButton.setAttribute('aria-pressed', 'false');

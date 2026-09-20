@@ -1,4 +1,4 @@
-# Slipspace Notes
+# Computational Lithography Notes
 
 A personal technical notebook on machine learning, computational lithography, and inverse lithography. The website, navigation, biography, articles, and image captions are all in English.
 

@@ -9,10 +9,10 @@ import argparse
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / 'dist'
-TITLE = 'Slipspace Notes'
+TITLE = 'Computational Lithography Notes'
 DESCRIPTION = 'A personal notebook on machine learning, computational lithography, and inverse lithography.'
 parser = argparse.ArgumentParser(description='Build the English notebook for GitHub Pages or a local preview.')
-parser.add_argument('--base-path', default='', help='Repository path, such as /slipspace-notes. Leave empty for a user site.')
+parser.add_argument('--base-path', default='', help='Repository path, such as /repository-name. Leave empty for a user site.')
 args = parser.parse_args()
 BASE_PATH = '/' + args.base_path.strip('/') if args.base_path.strip('/') else ''
 if BASE_PATH and not re.fullmatch(r'/[A-Za-z0-9._-]+', BASE_PATH):
@@ -41,10 +41,10 @@ def head(title, description):
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>{escape(title)}</title><meta name="description" content="{escape(description,quote=True)}"><meta property="og:title" content="{escape(title,quote=True)}"><meta property="og:description" content="{escape(description,quote=True)}"><meta property="og:type" content="website"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,{quote(ICON,safe='')}"><link rel="stylesheet" href="{site_url('styles.css')}"><script src="{site_url('site.js')}" defer></script></head><body><a class="skip-link" href="#main">Skip to content</a>'''
 
 def header(home=False):
-    return f'''<header class="site-header"><div class="shell nav-wrap"><a class="brand" href="{site_url('')}" aria-label="Slipspace Notes home">{MARK}<span>Slipspace Notes</span></a><nav class="nav-links" aria-label="Main navigation"><a href="{site_url('')}#notes"{' aria-current="page"' if home else ''}>Notes</a><a href="{site_url('')}#about">About</a></nav></div></header>'''
+    return f'''<header class="site-header"><div class="shell nav-wrap"><a class="brand" href="{site_url('')}" aria-label="{escape(TITLE, quote=True)} home">{MARK}<span>{escape(TITLE)}</span></a><nav class="nav-links" aria-label="Main navigation"><a href="{site_url('')}#notes"{' aria-current="page"' if home else ''}>Notes</a><a href="{site_url('')}#about">About</a></nav></div></header>'''
 
 def footer():
-    return '''<footer class="site-footer"><div class="shell footer-inner"><div class="footer-left"><span>© 2026 Slipspace Notes</span><span class="art-credit">AI-generated Cortana fan art.</span></div><button class="signal-button" type="button" data-signal aria-label="Activate signal 117" aria-pressed="false">117</button></div></footer><div class="signal-message" data-signal-message role="status" aria-live="polite" aria-atomic="true"></div></body></html>'''
+    return f'''<footer class="site-footer"><div class="shell footer-inner"><div class="footer-left"><span>© 2026 {escape(TITLE)}</span><span class="art-credit">AI-generated Cortana fan art.</span></div><button class="signal-button" type="button" data-signal aria-label="Activate signal 117" aria-pressed="false">117</button></div></footer><div class="signal-message" data-signal-message role="status" aria-live="polite" aria-atomic="true"></div></body></html>'''
 
 def render_article(post):
     blocks = [block.strip() for block in post['content'].strip().split('\n\n') if block.strip()]

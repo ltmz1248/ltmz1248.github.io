@@ -27,6 +27,7 @@ def asset_url(path):
     version = hashlib.sha256((DIST / path).read_bytes()).hexdigest()[:12]
     return site_url(path) + '?v=' + version
 ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#060c17"/><ellipse cx="16" cy="16" rx="7" ry="12" transform="rotate(28 16 16)" fill="none" stroke="#94d9f3" stroke-width="2.5"/><path d="M7 24l18-16" stroke="#94d9f3" stroke-width="1.2"/></svg>'
+SWORD_ICON = (DIST / 'assets/halo/energy-sword.svg').read_text(encoding='utf-8').strip()
 
 def inline(text):
     text = escape(text, quote=False)
@@ -54,7 +55,7 @@ def header(home=False):
 
 def likes(post):
     key = 'cln_likes_' + hashlib.sha256(('ltmz1248.github.io:' + post['slug']).encode()).hexdigest()[:32]
-    return f'''<div class="article-likes" data-like-key="{key}" data-like-title="{escape(post['title'], quote=True)}"><div class="like-controls"><button class="like-button" type="button" data-like-button title="Like this note" aria-label="Like {escape(post['title'], quote=True)}" aria-pressed="false" disabled><span class="energy-sword" aria-hidden="true"><img class="sword-image" src="{site_url('assets/halo/duelist-energy-sword.png')}" width="960" height="448" alt="" decoding="async"></span><span data-like-label>Like</span></button><span class="like-total" aria-live="polite" aria-atomic="true"><span data-like-count>—</span> <span data-like-unit>likes</span></span></div><p class="like-status" data-like-status role="status"></p><noscript><p class="like-status">Enable JavaScript to see likes and like this note.</p></noscript></div>'''
+    return f'''<div class="article-likes" data-like-key="{key}" data-like-title="{escape(post['title'], quote=True)}"><div class="like-controls"><button class="like-button" type="button" data-like-button title="Like this note" aria-label="Like {escape(post['title'], quote=True)}" aria-pressed="false" disabled>{SWORD_ICON}<span data-like-label>Like</span></button><span class="like-total" aria-live="polite" aria-atomic="true"><span data-like-count>—</span> <span data-like-unit>likes</span></span></div><p class="like-status" data-like-status role="status"></p><noscript><p class="like-status">Enable JavaScript to see likes and like this note.</p></noscript></div>'''
 
 def footer():
     return f'''<footer class="site-footer"><div class="shell footer-inner"><div class="footer-left"><span>© 2026 {escape(TITLE)}</span></div><button class="signal-button" type="button" data-signal aria-label="Reveal hidden quote" aria-pressed="false">117</button></div></footer><div class="signal-message" data-signal-message role="status" aria-live="polite" aria-atomic="true"></div></body></html>'''

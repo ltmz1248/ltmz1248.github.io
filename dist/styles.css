@@ -20,14 +20,18 @@
 .like-button:before,.like-button:after{content:'';position:absolute;z-index:-1;pointer-events:none;clip-path:polygon(8px 0,calc(100% - 8px) 0,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0 calc(100% - 8px),0 8px);transition:background .2s}
 .like-button:before{inset:0;background:var(--hud-frame)}
 .like-button:after{inset:1px;background:linear-gradient(110deg,#14324766,transparent 65%),var(--hud-panel)}
-.like-button .energy-sword{display:block;width:54px;height:26px;flex:none}
-.sword-image{display:block;width:100%;height:100%;object-fit:contain;opacity:.72;filter:brightness(.55) saturate(.7);transition:opacity .25s,filter .25s}
+.like-button .energy-sword{display:block;width:54px;height:26px;flex:none;overflow:visible}
+.sword-blades{fill:transparent;stroke:#4b7891;transition:fill .25s,stroke .25s,filter .25s}
+.sword-core{stroke:#dcfaff;opacity:0;transition:opacity .25s}
+.sword-hilt{fill:#152a39;stroke:#86a0b2}
+.sword-hilt-detail{stroke:#6f95b0}
 .like-button:hover:not(:disabled){--hud-frame:#76cdea;--hud-panel:#10273a;color:#d1f3ff}
-.like-button:hover:not(:disabled) .sword-image{opacity:.9;filter:brightness(.7) saturate(.8)}
+.like-button:hover:not(:disabled) .sword-blades{stroke:#76abc6}
 .like-button[aria-pressed=true]{--hud-frame:#538ba2;--hud-panel:#0d2634;color:#a4e9ff}
-.like-button[aria-pressed=true] .sword-image{opacity:1;filter:brightness(1.08) drop-shadow(0 0 2px #48bfff88)}
-.like-button.like-received .sword-image{animation:sword-ignite .55s ease-out}
-@keyframes sword-ignite{0%{filter:brightness(.7)}45%{filter:brightness(1.2) drop-shadow(0 0 4px #93e8ff99)}100%{filter:brightness(1.08) drop-shadow(0 0 2px #48bfff88)}}
+.like-button[aria-pressed=true] .sword-blades{fill:#3bbdff77;stroke:#adefff;filter:drop-shadow(0 0 2px #48bfff99)}
+.like-button[aria-pressed=true] .sword-core{opacity:.9}
+.like-button.like-received .sword-blades{animation:sword-ignite .55s ease-out}
+@keyframes sword-ignite{0%{filter:drop-shadow(0 0 1px #48bfff33)}45%{filter:drop-shadow(0 0 4px #93e8ffbb)}100%{filter:drop-shadow(0 0 2px #48bfff99)}}
 .like-button:disabled{cursor:default;opacity:.65}
 .like-button[aria-pressed=true]:disabled{opacity:1}
 .like-total{color:#95a9be;white-space:nowrap;font-size:12px;letter-spacing:.02em}
@@ -39,7 +43,7 @@
 .post-likes .like-button{padding:10px 20px}
 @media(max-width:740px){.index-layout{padding-top:24px}.section-heading h1{font-size:22px}.entry-actions{align-items:flex-start}.entry-actions .article-likes{width:100%}}
 @media print{.article-likes{display:none}}
-@media(prefers-reduced-motion:reduce){.like-button.like-received .sword-image{animation:none}}
+@media(prefers-reduced-motion:reduce){.like-button.like-received .sword-blades{animation:none}}
 
 .header-art{position:relative;display:block;flex:0 0 64px;width:64px;height:64px;overflow:hidden;mix-blend-mode:screen;pointer-events:none}
 .header-art img{position:absolute;left:50%;top:50%;width:320px;max-width:none;height:200px;transform:translate(-50%,-50%)}

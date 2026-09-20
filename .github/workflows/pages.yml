@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Check out the notebook
         uses: actions/checkout@v6
+      - name: Check article likes
+        run: node --test tests/likes.test.mjs
       - name: Configure GitHub Pages
         id: pages
         uses: actions/configure-pages@v5
